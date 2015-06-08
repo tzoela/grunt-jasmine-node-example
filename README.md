@@ -1,10 +1,16 @@
 Testing Node modules using grunt-jasmine-node
 =============================================
 
-Run:
+To install, run:
 ```
+git clone git@github.com:johnbeech/grunt-jasmine-node-example.git
+cd grunt-jasmine-node-example
 npm install
 npm install grunt -g
+```
+
+To run Jasmine tests and JS Hint, run:
+```
 grunt
 ```
 

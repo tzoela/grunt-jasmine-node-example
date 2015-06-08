@@ -1,1 +1,3 @@
 node_modules
+lib/api/statusCode.js
+spec/api/statusCodeSpec.js

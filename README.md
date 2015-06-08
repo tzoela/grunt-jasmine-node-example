@@ -2,7 +2,7 @@ Testing Node modules using grunt-jasmine-node
 =============================================
 
 To install, run:
-```
+```sh
 git clone git@github.com:johnbeech/grunt-jasmine-node-example.git
 cd grunt-jasmine-node-example
 npm install
@@ -16,7 +16,7 @@ grunt
 
 The project should run a couple of Jasmine unit specs against myModule.js, and then run JS Hint successfully.
 
-```
+```sh
 Running "jasmine_node:all" (jasmine_node) task
 Running /Users/beechj01/workspace/talon-tester/spec/myModuleSpec.js
 ..
@@ -33,24 +33,12 @@ Running "jshint:lib_test" (jshint) task
 Done, without errors.
 ```
 
-Creating new modules
-====================
+Creating New Modules and Writing Specs
+======================================
 
 Create new modules under the lib folder, and use sub folders as appropriate, e.g. `lib/api/statusCode.js`
 ```js
-var instance = function() {}
-
-instance.identify = function(statusCode) {
-  var statusCode = req.query.statusCode || 0;
-  var statusMessage = knownStatusCodes[statusCode] || "Unrecognised status code";
-
-  var response = {
-    statusCode: statusCode,
-    message: statusMessage
-  };
-
-  return response;
-}
+var instance = function() {};
 
 var knownStatusCodes = {
   "100": "Continue",
@@ -59,14 +47,28 @@ var knownStatusCodes = {
   "500": "Internal Server Error"
 };
 
+instance.identify = function(code) {
+  var statusCode = code || 0;
+  var statusMessage = knownStatusCodes[statusCode] || "Unrecognised status code";
+
+  var response = {
+    statusCode: statusCode,
+    message: statusMessage
+  };
+
+  return response;
+};
+
 module.exports = instance;
+
 ```
 
 And then create a matching Spec file under `spec/api/statusCodeSpec.js`
 ```js
-var statusCodeApi = require('../../lib/statusCode');
+var statusCodeApi = require('../../lib/api/statusCode');
 
 describe("Status Code API", function() {
+
   it("should produce a default response", function() {
     var response = statusCodeApi.identify();
     expect(response.statusCode).toBe(0);
@@ -97,5 +99,33 @@ describe("Status Code API", function() {
     expect(response.message).toBe("Internal Server Error");
   });
 
+  it("should identify the status code 404 as File not found", function() {
+    var response = statusCodeApi.identify(404);
+    expect(response.statusCode).toBe(404);
+    expect(response.message).toBe("File not found");
+  });
+
 });
+
 ```
+
+You should then be able to run these tests using `grunt` from the root of the project folder, and you should see this result:
+```sh
+Running "jasmine_node:all" (jasmine_node) task
+Running /Users/beechj01/workspace/grunt-jasmine-node-example/spec/myModuleSpec.js
+.....F..
+
+Failures:
+
+  1) Status Code API should identify the status code 404 as File not found
+   Message:
+     Expected 'Unrecognised status code' to be 'File not found'.
+   Stacktrace:
+     Error: Expected 'Unrecognised status code' to be 'File not found'.
+    at null.<anonymous> (/Users/beechj01/workspace/grunt-jasmine-node-example/spec/api/statusCodeSpec.js:38:30)
+
+Finished in 0.008 seconds
+8 tests, 14 assertions, 1 failure, 0 skipped
+```
+
+Fix the failing test, and you're good to go!

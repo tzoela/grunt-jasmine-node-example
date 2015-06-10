@@ -10,7 +10,7 @@
     "jasmine-node": "^1.14.5"
   },
   "scripts": {
-    "grunt": "node ./node_modules/grunt-cli/bin/grunt"
+    "test": "node ./node_modules/grunt-cli/bin/grunt"
   },
   "dependencies": {
     "md5-node": "^1.0.1"

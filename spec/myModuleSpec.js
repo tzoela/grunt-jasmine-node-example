@@ -1,4 +1,4 @@
-var x = require('../lib/mymodule');
+var x = require('../lib/myModule');
 
 describe('Talon Testers', function()
 {

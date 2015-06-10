@@ -11,4 +11,8 @@ describe('Talon Testers', function()
   it("should return unknown name", function() {
     expect(x("some unknown name")).toBe("unknown name");
   });
+
+  it("should break", function() {
+    expect(false).toBe(true);
+  });
 });

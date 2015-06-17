@@ -1,5 +1,6 @@
 Testing Node modules using grunt-jasmine-node
 =============================================
+[![Build Status](https://travis-ci.org/tzoela/grunt-jasmine-node-example.svg?branch=master)](https://travis-ci.org/tzoela/grunt-jasmine-node-example)
 
 To install, run:
 ```sh

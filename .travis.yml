@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - "0.12"
+env:
+  git:
+  depth: 10
+branches:
+  only:
+    - master
+script:
+  - "node ./node_modules/grunt-cli/bin/grunt"
